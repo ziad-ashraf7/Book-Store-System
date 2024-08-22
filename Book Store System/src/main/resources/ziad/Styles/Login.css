@@ -1,0 +1,59 @@
+.login-container {
+    -fx-background-color: #a90000;
+    -fx-background-radius: 0px 0px 100px 100px;
+}
+
+.img{
+    -fx-background-color: white;
+}
+.login-container Text {
+    -fx-fill: black;
+}
+
+
+.login Button{
+    -fx-background-color: red;
+    -fx-background-radius: 50px;
+    -fx-pref-width: 100px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(192, 0, 0, 0.69), 10, 0.5, 0, 0);
+}
+.login Button:pressed{
+    -fx-background-color: #004080; /* Even darker blue background */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0); /* Shadow effect */
+
+}
+.login{
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
+
+.login Text{
+    -fx-font-size: 30px;
+    -fx-font-family: Andalus;
+}
+
+.login Button{
+    -fx-background-position: top;
+}
+.login PasswordField {
+    -fx-background-color: white;
+    -fx-pref-height: 20px;
+    -fx-border-radius: 50px;
+    -fx-border-color: black;
+    -fx-background-radius: 20px;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+.login TextField {
+    -fx-background-color: white;
+    -fx-pref-height: 20px;
+    -fx-border-radius: 50px;
+    -fx-border-color: black;
+    -fx-background-radius: 20px;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+
