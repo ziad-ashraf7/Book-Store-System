@@ -1,0 +1,11 @@
+.bar{
+    -fx-background-color: #a10303;
+    -fx-background-radius:  70px 70px 0px 0px;
+    -fx-alignment: center;
+    -fx-spacing: 100px;
+
+}
+.bar ImageView{
+    -fx-fit-to-width: 10px;
+    -fx-cursor: hand;
+}

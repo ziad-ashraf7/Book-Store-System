@@ -2,6 +2,8 @@ module ziad.bookstoresystem {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires okhttp3;
+    requires org.json;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -11,6 +13,7 @@ module ziad.bookstoresystem {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.desktop;
 
     opens ziad.bookstoresystem to javafx.fxml;
     exports ziad.bookstoresystem;

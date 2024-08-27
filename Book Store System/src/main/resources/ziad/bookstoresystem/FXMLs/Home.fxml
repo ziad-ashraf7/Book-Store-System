@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ziad.bookstoresystem.Controllers.HomeController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="778.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ziad.bookstoresystem.Controllers.HomeController">
+   <BorderPane layoutX="-43.0" prefHeight="742.0" prefWidth="943.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+         <HBox fx:id="bar" prefHeight="49.0" prefWidth="900.0" styleClass="bar" stylesheets="@../../Styles/HomeStyle.css" BorderPane.alignment="CENTER">
+            <ImageView fx:id="srchImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Images/icons8-search-96.png" />
+            </ImageView>
+            <ImageView fx:id="favImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Images/icons8-heart-96.png" />
+            </ImageView>
+            <ImageView fx:id="hmImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Images/icons8-home-100.png" />
+            </ImageView>
+            <ImageView fx:id="catImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Images/icons8-category-96.png" />
+            </ImageView>
+            <ImageView fx:id="usrImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Images/icons8-user-96.png" />
+            </ImageView>
+         </HBox>
+      </bottom>
+      <top>
+         <HBox prefHeight="69.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="69.0" prefWidth="154.0" />
+         </HBox>
+      </top>
+      <center>
+         <ScrollPane fx:id="bScroll" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <content>
+               <GridPane fx:id="bGrid" prefHeight="29.0" prefWidth="94.0">
+                  <rowConstraints>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  </rowConstraints>
+               </GridPane>
+            </content>
+         </ScrollPane>
+      </center>
+   </BorderPane>
 </AnchorPane>

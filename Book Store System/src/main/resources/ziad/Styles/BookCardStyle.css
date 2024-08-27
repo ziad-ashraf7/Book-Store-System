@@ -1,0 +1,5 @@
+.container{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 40, 0.5, 3, 10);
+    -fx-background-color: #700000; /* Optional: background color */
+    -fx-text-fill: white; /* Optional: text color */
+}

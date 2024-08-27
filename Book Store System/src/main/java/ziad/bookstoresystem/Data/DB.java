@@ -1,16 +1,16 @@
 package ziad.bookstoresystem.Data;
+import ziad.bookstoresystem.Book;
+import ziad.bookstoresystem.User;
+import ziad.bookstoresystem.UserSingelton;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 public class DB {
-    private static DB Instance = null;
-    Connection connection;
-
-
-
+    // Why didn't you say this to me when i was ALIVE ?!
+    public static Connection connection;
     private Logger logger = Logger.getLogger(this.getClass().getName());
-
     public void getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
@@ -21,7 +21,6 @@ public class DB {
             logger.info(e.toString());
         }
     }
-
     public void createTable() {
         getConnection();
 
@@ -40,7 +39,8 @@ public class DB {
         }
     }
 
-    public boolean searchFor(String usrname, String pswrd) {
+    // Searching for a username and password.
+    public User searchFor(String usrname, String pswrd) {
         getConnection();
         ResultSet rs = null;
         String query = "select * from users where username=? AND password = ?";
@@ -49,22 +49,26 @@ public class DB {
             statement.setString(2 , pswrd);
             rs = statement.executeQuery();
             if(rs.next()){
+                User user = new User(rs.getString("username") , rs.getString("password") , rs.getInt("id"));
+//                System.out.println(rs.getString("username") + " " + rs.getString("password") + " " + rs.getString("id"));
+                UserSingelton.getInstance().setCurr_user(user);
+
                 closeConnection();
-                return true;
+                return user;
 
             }else {
                 closeConnection();
-                return false;
+                return null;
             }
 
         } catch (SQLException e) {
             logger.info(e.toString());
-            return false;
+            return null;
         }
 
 
     }
-    private void closeConnection() throws SQLException {
+    public void closeConnection() throws SQLException {
         if (connection != null || !connection.isClosed()) {
             connection.close();
         }
@@ -110,38 +114,24 @@ public class DB {
     }
 
 
-    public void creatScheme() {
+    public void creatScheme() throws SQLException {
+        getConnection();
         String query = "create table if not exists users (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ," +
                 "       username TEXT NOT NULL ," +
                 "       password TEXT NOT NULL, email TEXT NOT NULL UNIQUE );";
         excute(query);
-
-
-
-
-
-
-
-
-
-
-
-
-
+        closeConnection();
     }
     private void excute(String q){
-        getConnection();
         try
                 (
                         // create a database connection
-                        Connection connection = DriverManager.getConnection("jdbc:sqlite:users.db");
                         Statement statement = connection.createStatement();
                 ) {
             statement.executeUpdate(q);
-            logger.info("Table created");
+            logger.info("query excuted");
         } catch (SQLException e) {
             logger.info(e.toString());
         }
     }
-
 }

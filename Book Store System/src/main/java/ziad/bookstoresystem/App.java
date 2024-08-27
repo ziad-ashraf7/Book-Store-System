@@ -12,6 +12,7 @@ import ziad.bookstoresystem.Controllers.LoginController;
 import ziad.bookstoresystem.Data.DB;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class App extends Application {
     private DB db = new DB();
@@ -19,7 +20,7 @@ public class App extends Application {
     public  static TextField showPasswordField = new TextField();
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("FXMLs/Login.fxml"));
         root = fxmlLoader.load();
         Scene scene = new Scene(root);
