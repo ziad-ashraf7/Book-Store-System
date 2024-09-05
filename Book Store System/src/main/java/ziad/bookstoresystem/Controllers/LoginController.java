@@ -19,6 +19,7 @@ import ziad.bookstoresystem.UserSingelton;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -125,7 +126,6 @@ public class LoginController implements Initializable {
 
 
                         Thread thread = new Thread(new Runnable() {
-
                             @Override
                             public void run() {
 

@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class APIManager {
-    String apiKey = "?key=AIzaSyBCS5bBrh1bxYF73R7kWIeGpgj0xxZtxj8";
+    public static String apiKey = "AIzaSyBCS5bBrh1bxYF73R7kWIeGpgj0xxZtxj8";
 
     public static OkHttpClient client = new OkHttpClient();
 
@@ -46,11 +46,12 @@ public class APIManager {
 
     }
 
-    public void srchID(String id){
+    public JSONObject srchID(String id){
         String fir = "https://www.googleapis.com/books/v1/volumes/";
 
-        String url = fir + id + apiKey;
+        String url = fir + id +"?key="+ apiKey;
         System.out.println(url);
+
         Request request = sendRequest(url);
         try(Response response = client.newCall(request).execute()) {
             System.out.println("getting the Response");
@@ -58,16 +59,19 @@ public class APIManager {
             String json = response.body().string();
             JSONObject jsonObject = new JSONObject(json);
             // Getting the Items Array
-//            JSONArray items = jsonObject.getJSONArray("items");
+            JSONArray items = new JSONArray();
             System.out.println("Got the Items");
-            JSONObject volume = jsonObject.getJSONObject("volumeInfo");
-            System.out.println("got the book name" + volume.getString("title"));
+//            JSONObject volume = jsonObject.getJSONObject("volumeInfo");
+            items.put(jsonObject);
+//            System.out.println("got the book name" + volume.getString("title"));
+            return jsonObject;
             // Looping on the Itams array
         }catch (Exception e ){
             e.printStackTrace();
         }
         System.out.println("Got the volume info");
 
+        return null;
     }
     public JSONObject getRes(Request request) throws IOException {
         Call call = client.newCall(request);

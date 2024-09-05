@@ -9,3 +9,14 @@
     -fx-fit-to-width: 10px;
     -fx-cursor: hand;
 }
+
+.srchBar-container{
+    -fx-spacing: 20px;
+}
+.srchBar-container TextField{
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #a10303;
+    -fx-border-width: 2px;
+}

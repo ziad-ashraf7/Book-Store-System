@@ -1,4 +1,5 @@
 package ziad.bookstoresystem.Data;
+import org.json.JSONArray;
 import ziad.bookstoresystem.Book;
 import ziad.bookstoresystem.User;
 import ziad.bookstoresystem.UserSingelton;
@@ -71,6 +72,7 @@ public class DB {
     public void closeConnection() throws SQLException {
         if (connection != null || !connection.isClosed()) {
             connection.close();
+            logger.info("Connection closed");
         }
     }
     public void addUser(String name , String psw , String eml) throws SQLException {
@@ -133,5 +135,56 @@ public class DB {
         } catch (SQLException e) {
             logger.info(e.toString());
         }
+    }
+    public void addToFavList(String id) throws SQLException {
+        getConnection();
+        int user_id = UserSingelton.getInstance().getCurr_user().getId();
+        String q = "insert into fav_books (user_id, book_id) values (? , ?)";
+        try (PreparedStatement statement = connection.prepareStatement(q)) {
+            statement.setInt(1, user_id);
+            statement.setString(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();  // For better debugging
+        } finally {
+            closeConnection();
+        }
+    }
+    public void delFromFavLis(String id) throws SQLException {
+        getConnection();
+        int user_id = UserSingelton.getInstance().getCurr_user().getId();
+        String q = "DELETE from fav_books where user_id = (select id from users where id = ?) AND book_id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(q)) {
+            statement.setInt(1, user_id);
+            statement.setString(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+    }
+    public ArrayList<String> getFavList() throws SQLException {
+        getConnection();
+        int user_id = UserSingelton.getInstance().getCurr_user().getId();
+        ResultSet rs = null;
+        String q = "select book_id from fav_books where user_id = ?;";
+        ArrayList<String> list = null;
+        try (PreparedStatement statement = connection.prepareStatement(q)) {
+            statement.setInt(1, user_id);
+            rs = statement.executeQuery();
+            list = new ArrayList<>();
+            while(rs.next()){
+                list.add(rs.getString("book_id"));
+//                System.out.println(rs.getString("book_id"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return list;
+
     }
 }

@@ -1,5 +1,27 @@
 .container{
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 40, 0.5, 3, 10);
-    -fx-background-color: #700000; /* Optional: background color */
+    /*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 40, 0.5, 3, 10);*/
+    /*-fx-background-color: #700000; !* Optional: background color *!*/
     -fx-text-fill: white; /* Optional: text color */
+    -fx-background-color: #7e0101;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 60, 0.5, 3, 10);
+}
+.container Button{
+    -fx-background-color: #105500;
+    -fx-background-radius: 50px;
+    -fx-pref-width: 100px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 255, 72, 0.69), 20, 0.1, 0, 0);
+}
+.container Button:hover{
+    -fx-background-color: #001681;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.69), 20, 0.1, 0, 0);
+}
+.container Button:pressed{
+    -fx-background-color: #004080; /* Even darker blue background */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.5, 0, 0); /* Shadow effect */
+
 }

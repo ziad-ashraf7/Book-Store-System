@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,33 +12,49 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane prefHeight="778.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ziad.bookstoresystem.Controllers.HomeController">
-   <BorderPane layoutX="-43.0" prefHeight="742.0" prefWidth="943.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+   <BorderPane fx:id="brdPane" layoutX="-43.0" prefHeight="742.0" prefWidth="943.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
          <HBox fx:id="bar" prefHeight="49.0" prefWidth="900.0" styleClass="bar" stylesheets="@../../Styles/HomeStyle.css" BorderPane.alignment="CENTER">
             <ImageView fx:id="srchImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../Images/icons8-search-96.png" />
             </ImageView>
-            <ImageView fx:id="favImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="favImg" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#goFav" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../Images/icons8-heart-96.png" />
             </ImageView>
-            <ImageView fx:id="hmImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="hmImg" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../Images/icons8-home-100.png" />
             </ImageView>
-            <ImageView fx:id="catImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../Images/icons8-category-96.png" />
+            <ImageView fx:id="catImg" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#gotTo" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Images/gemini%20icon.png" />
             </ImageView>
-            <ImageView fx:id="usrImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="usrImg" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#goProfile" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../Images/icons8-user-96.png" />
             </ImageView>
          </HBox>
       </bottom>
       <top>
-         <HBox prefHeight="69.0" prefWidth="900.0" BorderPane.alignment="CENTER">
-            <HBox prefHeight="69.0" prefWidth="154.0" />
+         <HBox prefHeight="48.0" prefWidth="1013.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="49.0" prefWidth="589.0" styleClass="srchBar-container" stylesheets="@../../Styles/HomeStyle.css">
+               <children>
+                  <TextField fx:id="srchBar" prefHeight="39.0" prefWidth="570.0">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <ImageView fx:id="srchIcone" fitHeight="42.0" fitWidth="58.0" onMouseClicked="#searchOnBook" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                     <Image url="@../../Images/icons8-search-96.png" />
+                  </ImageView>
+               </children>
+               <HBox.margin>
+                  <Insets left="250.0" />
+               </HBox.margin></HBox>
          </HBox>
       </top>
       <center>
-         <ScrollPane fx:id="bScroll" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <ScrollPane fx:id="bScroll" prefHeight="200.0" prefWidth="1013.0" BorderPane.alignment="CENTER">
             <content>
                <GridPane fx:id="bGrid" prefHeight="29.0" prefWidth="94.0">
                   <rowConstraints>

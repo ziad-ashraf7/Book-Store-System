@@ -5,6 +5,9 @@ module ziad.bookstoresystem {
     requires okhttp3;
     requires org.json;
 
+
+
+
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
@@ -14,6 +17,8 @@ module ziad.bookstoresystem {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires java.desktop;
+    requires java.rmi;
+
 
     opens ziad.bookstoresystem to javafx.fxml;
     exports ziad.bookstoresystem;

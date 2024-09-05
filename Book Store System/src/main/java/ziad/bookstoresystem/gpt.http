@@ -1,0 +1,10 @@
+POST https://api.openai.com/v1/completions
+Content-Type: application/json
+Authorization: Bearer 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
+
+{
+"model" : "gpt-4o-mini",
+"prompt":"tell me a story",
+"temperature":1,
+"max_tokens":100
+}

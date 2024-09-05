@@ -52,13 +52,15 @@ public class BookCardController implements Initializable {
         aothName.setText( book.getAuthor());
         Image image = new Image(book.getImage());
         img.setImage(image);
-        if(UserSingelton.getInstance().getCurr_user().getFavorites().isEmpty()){
+        if(UserSingelton.getInstance().getCurr_user().getFavorites().isEmpty()) {
+
             try {
                 insertFacBooks();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+
         for (String favBook : UserSingelton.getInstance().getCurr_user().getFavorites()) {
             if(favBook.equals(myBook.getISBN())){
                 Image image1 = new Image(getClass().getResource("/ziad/Images/fav_black.png").toExternalForm());
@@ -69,22 +71,16 @@ public class BookCardController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
         bName.setFont(new Font(30));
         aothName.setFont(new Font(30));
         bName.setFill(Color.WHITE);
         aothName.setFill(Color.WHITE);
-//        cont.setStyle("-fx-background-color: #ff0000");
-        cont.setStyle(
-                "-fx-background-color: #7e0101;" +
-                "-fx-border-radius: 15;" +
-                "-fx-background-radius: 15;" +
-                "-fx-padding: 10;"+  // Optional: Adds some padding
-                "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 60, 0.5, 3, 10);"
-        );
-        System.out.println("This is from the init of the hoem");
         System.out.println(UserSingelton.getInstance().getCurr_user().getName());
+        try {
+            insertFacBooks();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -94,8 +90,8 @@ public class BookCardController implements Initializable {
     }
 
 
-    void insertFacBooks() throws SQLException {
-
+    private void insertFacBooks() throws SQLException {
+        UserSingelton.getInstance().getCurr_user().getFavorites().clear();
         // getting the userID
         int id = UserSingelton.getInstance().getCurr_user().getId();
         // Getting the users Fav books from the DB
@@ -117,8 +113,33 @@ public class BookCardController implements Initializable {
         }
         // Adding the books in the Array
     }
-
-
-    public void add_fav(javafx.scene.input.MouseEvent mouseEvent) {
+    
+    public void add_fav(javafx.scene.input.MouseEvent mouseEvent) throws SQLException {
+        String sel_book = myBook.getISBN();
+        // is The book is one of the books fav List
+        System.out.println(sel_book);
+        if(isFav(sel_book)){
+            System.out.println("This is a favaurite book");
+            Image image1 = new Image(getClass().getResource("/ziad/Images/fav_white.png").toExternalForm());
+            fav_img.setImage(image1);
+            db.delFromFavLis(sel_book);
+            System.out.println("DELETED from FAV LIST");
+        }else{
+            System.out.println("This is NOT a favaurite book");
+            db.addToFavList(sel_book);
+            System.out.println("ADDED to FAV LIST");
+            Image image1 = new Image(getClass().getResource("/ziad/Images/fav_black.png").toExternalForm());
+            fav_img.setImage(image1);
+        }
+    }
+    private boolean isFav(String id) throws SQLException {
+        insertFacBooks();
+        ArrayList<String> books = UserSingelton.getInstance().getCurr_user().getFavorites();
+        for (int i = 0; i < books.size(); i++) {
+            if(books.get(i).equals(id)){
+                return true;
+            }
+        }
+        return false;
     }
 }
