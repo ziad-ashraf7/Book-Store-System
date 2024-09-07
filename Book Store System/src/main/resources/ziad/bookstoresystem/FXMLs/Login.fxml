@@ -47,6 +47,7 @@
                 </TextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
             <PasswordField fx:id="pstf" />
+            <TextField fx:id="pwShow" />
             </VBox>
             <Button fx:id="lgnbtn" layoutX="169.0" layoutY="216.0" mnemonicParsing="false" styleClass="login" stylesheets="@../../Styles/Login.css" text="Login" />
             <Button fx:id="sgnbtn" layoutX="290.0" layoutY="216.0" mnemonicParsing="false" styleClass="login" stylesheets="@../../Styles/Login.css" text="Sign Up" />

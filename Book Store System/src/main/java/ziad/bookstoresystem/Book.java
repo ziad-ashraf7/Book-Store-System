@@ -6,7 +6,8 @@ public class Book {
     String publisher;
     String ISBN;
     String image;
-    public Book(String title, String author, String publisher, String ISBN, String image) {
+    String prevLink;
+    public Book(String title, String author, String publisher, String ISBN, String image , String prevLink) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
@@ -14,9 +15,16 @@ public class Book {
         this.image = image;
     }
 
+    public void setPrevLink(String prevLink) {
+        this.prevLink = prevLink;
+    }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getPrevLink() {
+        return prevLink;
     }
 
     public void setTitle(String title) {

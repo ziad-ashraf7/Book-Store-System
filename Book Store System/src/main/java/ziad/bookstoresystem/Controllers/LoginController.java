@@ -28,7 +28,6 @@ import static ziad.bookstoresystem.App.showPasswordField;
 public class LoginController implements Initializable {
     private DB db = new DB();
 
-//    public static User curr_user = new User();
 
     @FXML
     private Button lgnbtn;
@@ -42,13 +41,16 @@ public class LoginController implements Initializable {
     APIManager api = new APIManager();
     @FXML
     private ProgressBar progBar;
+
     @FXML
     private Button sgnbtn;
+
     @FXML
     private Text errmsg;
 
     @FXML
     private TextField usrtf;
+
     @FXML
     private Text errT;
 
@@ -56,37 +58,30 @@ public class LoginController implements Initializable {
     private CheckBox shwpss;
 
 
+    @FXML
+    private TextField pwShow;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         progBar.setVisible(false);
-
-        showPasswordField.setLayoutX(pstf.getLayoutX());
-        showPasswordField.setLayoutY(pstf.getLayoutY());
-
-        showPasswordField.setMaxWidth(pstf.getMaxWidth());
-        showPasswordField.setMaxHeight(pstf.getMaxHeight());
-
-        showPasswordField.setManaged(false);
-        showPasswordField.setVisible(false);
-
-        // Sync the text between PasswordField and TextField
-        showPasswordField.textProperty().bindBidirectional(pstf.textProperty());
-
-//        showPasswordField.textProperty().bindBidirectional(psdtf.textProperty());
+        pwShow.setVisible(false);
+        pwShow.setLayoutX(pstf.getLayoutX());
+        pwShow.setLayoutY(pstf.getLayoutY());
+        pwShow.setMaxWidth(pstf.getMaxWidth());
+        pwShow.setMaxHeight(pstf.getMaxHeight());
+        pwShow.textProperty().bindBidirectional(pstf.textProperty());
         shwpss.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
             if (isSelected) {
-                showPasswordField.setVisible(true);
-                showPasswordField.setManaged(true);
+                pwShow.setVisible(true);
+                pwShow.setManaged(true);
                 pstf.setVisible(false);
                 pstf.setManaged(false);
             } else {
-                showPasswordField.setVisible(false);
-                showPasswordField.setManaged(false);
+                pwShow.setVisible(false);
+                pwShow.setManaged(false);
                 pstf.setVisible(true);
                 pstf.setManaged(true);
             }
         });
-
         sgnbtn.setOnMouseClicked(e->{
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("FXMLs/SignUp.fxml"));
             Pane root = new Pane();
@@ -117,7 +112,6 @@ public class LoginController implements Initializable {
                         System.out.println(UserSingelton.getInstance().getCurr_user().getId());
                         System.out.println(UserSingelton.getInstance().getCurr_user().getName());
                         System.out.println(UserSingelton.getInstance().getCurr_user().getPassword());
-    //                    progBar.setVisible(true);
                         ProgressBar prg = new ProgressBar();
                         prg.setPrefWidth(250);
                         prg.setLayoutX(160);

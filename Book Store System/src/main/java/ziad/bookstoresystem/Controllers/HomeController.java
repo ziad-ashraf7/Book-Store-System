@@ -1,16 +1,21 @@
 package ziad.bookstoresystem.Controllers;
 
 import javafx.application.Platform;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import okhttp3.OkHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,10 +82,19 @@ public class HomeController implements Initializable {
 
     DB db = new DB();
 
+    StackPane container = new StackPane();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db.getConnection();
-        bGrid.setHgap(50); // Horizontal gap between columns
+//        try {
+//            loadFav();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        bGrid.setHgap(50);
         bGrid.setVgap(50);
 
         try {
@@ -100,19 +114,17 @@ public class HomeController implements Initializable {
         for (int i = 0; i < items.length(); i++) {
             System.out.println(UserSingelton.getInstance().getCurr_user().getName());
 
-            // Gettign the VolumInfo JSON Object
             JSONObject vInfo = items.getJSONObject(i).getJSONObject("volumeInfo");
             JSONObject imgSec;
-
-            // Getting the Image Section ( JSON Object )
 
             String thum =      "Unknown";
             String title =     "Unknown";
             String author =    "Unknown";
             String publisher = "Unknown";
             String image =     "Unknown";
+            String prevlink=   "Unknown";
             String ISBN =      items.getJSONObject(i).getString("id");
-            Book book = new Book(title, author, publisher, ISBN, image);
+            Book book = new Book(title, author, publisher, ISBN, image , prevlink);
             volData(vInfo, thum, title, author, publisher, ISBN, image, book);
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource("FXMLs/BookCard.fxml"));
@@ -161,10 +173,14 @@ public class HomeController implements Initializable {
 
 
     public void goFav(MouseEvent mouseEvent) throws SQLException, IOException {
-        ArrayList<String> book_list = db.getFavList();
+        loadFav();
+
+    }
+    private void loadFav() throws IOException, SQLException {
         bGrid.setVisible(false);
+        ArrayList<String> book_list = db.getFavList();
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(50); // Horizontal gap between columns
+        gridPane.setHgap(50);
         gridPane.setVgap(50);
         bScroll.setContent(gridPane);
         JSONArray items = new JSONArray();
@@ -174,22 +190,41 @@ public class HomeController implements Initializable {
             }
         }
         loopOnItems(items , gridPane);
-
     }
 
     public void goHome(MouseEvent mouseEvent) {
         bGrid.setVisible(true);
 
+        bScroll.setContent(bGrid);
+
     }
 
     public void gotTo(MouseEvent mouseEvent) {
-        bGrid.setVisible(false);
-
-
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+        Stage stage = new Stage();
+        webEngine.load("https://chatgpt.com/c/a779e3ae-2763-4f72-84e8-23eff0bd8d68");
+        webEngine.setJavaScriptEnabled(true);
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                System.out.println("Loaded URL: " + webEngine.getLocation());
+            }
+        });
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(webView);
+        Scene scene = new Scene(borderPane , 1200 , 800);
+        stage.setTitle("JavaFX Web Browser");
+        stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.show();
     }
 
-    public void goProfile(MouseEvent mouseEvent) {
-
+    public void goProfile(MouseEvent mouseEvent) throws IOException {
+        bGrid.setVisible(false);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(App.class.getResource("FXMLs/ProfilePage.fxml"));
+        AnchorPane anchorPane = loader.load();
+        bScroll.setContent(anchorPane);
     }
 
     public void searchOnBook(MouseEvent mouseEvent) throws IOException {
@@ -220,8 +255,7 @@ public class HomeController implements Initializable {
     }
 
     private void loopOnItems(JSONArray items , GridPane grid) throws IOException {
-
-        bGrid.getChildren().clear();
+        grid.getChildren().clear();
         Thread thread = new Thread(new Runnable() {
 
             @Override
@@ -230,17 +264,16 @@ public class HomeController implements Initializable {
                 int col = 1;
                 final int[] row = {1};
                 for (int i = 0; i < items.length(); i++) {
-                    // Gettign the VolumInfo JSON Object
                     JSONObject vInfo = items.getJSONObject(i).getJSONObject("volumeInfo");
-                    // Getting the Image Section ( JSON Object )
 
                     String thum =      "Unknown";
                     String title =     "Unknown";
                     String author =    "Unknown";
                     String publisher = "Unknown";
                     String image =     "Unknown";
+                    String prevlink=   "Unknown";
                     String ISBN =      items.getJSONObject(i).getString("id");
-                    Book book = new Book(title, author, publisher, ISBN, image);
+                    Book book = new Book(title, author, publisher, ISBN, image , prevlink);
                     volData(vInfo, thum, title, author, publisher, ISBN, image, book);
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(App.class.getResource("FXMLs/BookCard.fxml"));
@@ -286,6 +319,13 @@ public class HomeController implements Initializable {
         thum = imgSec.getString("thumbnail");
         System.out.println(thum);
         title = vInfo.getString("title");
+        try{
+
+            String prev = vInfo.getString("previewLink");
+            book.setPrevLink(prev);
+        }catch (Exception e){
+            System.out.println("Faild to load prev link");
+        }
         author = "Unknown";
         try {
             author = vInfo.getJSONArray("authors").getString(0);

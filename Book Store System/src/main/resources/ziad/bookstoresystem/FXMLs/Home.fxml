@@ -15,20 +15,14 @@
    <BorderPane fx:id="brdPane" layoutX="-43.0" prefHeight="742.0" prefWidth="943.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
          <HBox fx:id="bar" prefHeight="49.0" prefWidth="900.0" styleClass="bar" stylesheets="@../../Styles/HomeStyle.css" BorderPane.alignment="CENTER">
-            <ImageView fx:id="srchImg" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../Images/icons8-search-96.png" />
-            </ImageView>
             <ImageView fx:id="favImg" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#goFav" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../Images/icons8-heart-96.png" />
             </ImageView>
             <ImageView fx:id="hmImg" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#goHome" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../Images/icons8-home-100.png" />
             </ImageView>
-            <ImageView fx:id="catImg" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#gotTo" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../Images/gemini%20icon.png" />
-            </ImageView>
             <ImageView fx:id="usrImg" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#goProfile" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../Images/icons8-user-96.png" />
+               <Image url="@../../Images/profile.png" />
             </ImageView>
          </HBox>
       </bottom>

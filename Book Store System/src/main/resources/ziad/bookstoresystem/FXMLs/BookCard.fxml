@@ -64,7 +64,7 @@
             </image>
          </ImageView>
       </AnchorPane>
-      <Button fx:id="lgnbtn" layoutX="332.0" layoutY="223.0" mnemonicParsing="false" styleClass="login" stylesheets="@../../Styles/Login.css" text="Preview Link" />
+      <Button fx:id="lgnbtn" layoutX="332.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#prevBook" styleClass="login" stylesheets="@../../Styles/Login.css" text="Preview Link" />
       <Button fx:id="lgnbtn2" layoutX="454.0" layoutY="223.0" mnemonicParsing="false" styleClass="login" stylesheets="@../../Styles/Login.css" text="See More" />
    </children>
 </AnchorPane>

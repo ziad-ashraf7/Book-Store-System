@@ -187,4 +187,28 @@ public class DB {
         return list;
 
     }
+
+    public void insertFacBooks() throws SQLException {
+        UserSingelton.getInstance().getCurr_user().getFavorites().clear();
+        // getting the userID
+        int id = UserSingelton.getInstance().getCurr_user().getId();
+        // Getting the users Fav books from the DB
+        getConnection();
+        String q = "select book_id from fav_books where user_id =?";
+        try (PreparedStatement statement = connection.prepareStatement(q)) {
+            statement.setInt(1, id);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    String bookId = rs.getString("book_id");
+                    System.out.println("Book ID: " + bookId);
+                    UserSingelton.getInstance().getCurr_user().getFavorites().add(bookId);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // For better debugging
+        } finally {
+            closeConnection();
+        }
+        // Adding the books in the Array
+    }
 }
