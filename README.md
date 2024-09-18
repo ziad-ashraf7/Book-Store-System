@@ -16,9 +16,9 @@
 
 ---
 ### **Favourits Page:**
+![image](https://github.com/user-attachments/assets/7d408faf-ad12-4ae7-9b84-203768b8b6fd)
 
 
 ### **Profile Page:**
+![image](https://github.com/user-attachments/assets/f084ebd3-fcf3-4122-a8f1-0e6b34913e97)
 
-
-### ** Page:**
